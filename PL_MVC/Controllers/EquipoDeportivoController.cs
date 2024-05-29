@@ -127,29 +127,55 @@ namespace PL_MVC.Controllers
         [HttpPost]
         public ActionResult Form(ML.EquiposDeportivos equipo)
         {
-            //Add
-            using (HttpClient client = new HttpClient())
+            if (equipo.IdEquipo != 0)
             {
-                client.BaseAddress = new Uri("http://localhost:65041/api/");
-                var response = client.PostAsJsonAsync<ML.EquiposDeportivos>("EquiposDeportivos/Add", equipo);
-                response.Wait();
-
-                var result = response.Result;
-                if (result.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
+                    client.BaseAddress = new Uri("http://localhost:65041/api/");
 
-                    var responseBody = result.Content.ReadAsStringAsync().Result;
-                    ViewBag.Text = responseBody;
-                    return PartialView("Modal");
+                    var responseTask = client.PutAsJsonAsync("EquiposDeportivos/Update", equipo);
+                    responseTask.Wait();
 
+                    var result = responseTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        ViewBag.Text = "El Registro se ha Actualizado Exitosamente";
+                        return View("Modal");
+                    }
+                    else
+                    {
+                        ViewBag.Text = "Ocurrio un Error: El Registro No se Actualizo Exitosamente";
+                        return PartialView("Modal");
+                    }
                 }
-                else
+            }
+            else
+            {
+                //Add
+                using (HttpClient client = new HttpClient())
                 {
-                    var responseBody = result.Content.ReadAsStringAsync().Result;
-                    ViewBag.Text = responseBody;
-                    return PartialView("Modal");
-                }
+                    client.BaseAddress = new Uri("http://localhost:65041/api/");
+                    var response = client.PostAsJsonAsync<ML.EquiposDeportivos>("EquiposDeportivos/Add", equipo);
+                    response.Wait();
 
+                    var result = response.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+
+                        var responseBody = result.Content.ReadAsStringAsync().Result;
+                        //ViewBag.Text = responseBody;
+                        ViewBag.Text = "Se Agrego Exitosamente";
+                        return PartialView("Modal");
+
+                    }
+                    else
+                    {
+                        var responseBody = result.Content.ReadAsStringAsync().Result;
+                        //ViewBag.Text = responseBody;
+                        ViewBag.Text = "No se pudo Agregar";
+                        return PartialView("Modal");
+                    }
+                }
             }
         }
 
@@ -172,7 +198,7 @@ namespace PL_MVC.Controllers
                 }
                 else
                 {
-                    ViewBag.Text = "No se Elimino Exitosamente";
+                    ViewBag.Text = "No se Elimino";
                     return PartialView("Modal");
 
                 }

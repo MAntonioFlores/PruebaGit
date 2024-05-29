@@ -48,11 +48,13 @@ namespace SL_WebAPI.Controllers
             var result = BL.EquiposDeportivos.Add(equiposDeportivos);
             if (result.Item1)
             {
-                return Content(HttpStatusCode.OK, new { HttpMessageContent = "El equipo se registro correctamente" });
+                //return Content(HttpStatusCode.OK, new { HttpMessageContent = "El equipo se registro correctamente" });
+                return Content(HttpStatusCode.OK, result);
             }
             else
             {
-                return Content(HttpStatusCode.OK, new { HttpMessageContent = "El equipo no se registro" + result.Item3 });
+                //return Content(HttpStatusCode.OK, new { HttpMessageContent = "El equipo no se registro" + result.Item3 });
+                return Content(HttpStatusCode.BadRequest, result);
             }
         }
 
@@ -64,11 +66,13 @@ namespace SL_WebAPI.Controllers
             var result = BL.EquiposDeportivos.Update(equiposDeportivos);
             if (result.Item1)
             {
-                return Content(HttpStatusCode.OK, new { HttpMessageContent = "El equipo se actualizo correctamente" });
+                //return Content(HttpStatusCode.OK, new { HttpMessageContent = "El equipo se actualizo correctamente" });
+                return Content(HttpStatusCode.OK, result);
             }
             else
             {
-                return Content(HttpStatusCode.OK, new { HttpMessageContent = "El equipo no se actualizo" + result.Item3 });
+                return Content(HttpStatusCode.OK, result);
+                //return Content(HttpStatusCode.OK, new { HttpMessageContent = "El equipo no se actualizo" + result.Item3 });
             }
         }
 

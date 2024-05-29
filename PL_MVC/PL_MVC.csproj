@@ -334,7 +334,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\EquipoDeportivo\GetAll.cshtml" />
     <Content Include="Views\EquipoDeportivo\Form.cshtml" />
-    <Content Include="Views\EquipoDeportivo\View.cshtml" />
+    <Content Include="Views\EquipoDeportivo\Modal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
