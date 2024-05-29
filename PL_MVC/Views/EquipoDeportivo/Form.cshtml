@@ -1,0 +1,90 @@
+﻿@model ML.EquiposDeportivos
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Form</h2>
+
+@using (Html.BeginForm("Form", "EquipoDeportivo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.IdEquipo);
+
+    @Html.LabelFor(model => model.NombreEquipo, new { @class = "form-label" })
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-pencil"></i></span>
+        @Html.TextBoxFor(model => model.NombreEquipo, new { @class = "form-control", @placeholder = "Nombre", @onkeyup = "soloLetras(this, lblNombreEquipo)" })
+        @Html.ValidationMessageFor(model => Model.NombreEquipo, null, new { @class = "text-danger" })
+        <label id="lblNombreEquipo"></label>
+    </div>
+
+    @Html.LabelFor(model => model.Entrenador, new { @class = "form-label" })
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-pencil"></i></span>
+        @Html.TextBoxFor(model => model.Entrenador, new { @class = "form-control", @placeholder = "Entrenador", @onkeyup = "soloLetras(this, lblEntrenador)" })
+        @Html.ValidationMessageFor(model => Model.Entrenador, null, new { @class = "text-danger" })
+        <label id="lblEntrenador"></label>
+    </div>
+
+    @Html.LabelFor(model => model.Fundacion, new { @class = "form-label" })
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-pencil"></i></span>
+        @Html.TextBoxFor(model => model.Fundacion, new { @class = "form-control", @placeholder = "Fundacion", @onkeyup = "soloLetras(this, lblNombreEquipo)" })
+        @Html.ValidationMessageFor(model => Model.Fundacion, null, new { @class = "text-danger" })
+        <label id="lblFundacion"></label>
+    </div>
+
+    @Html.LabelFor(model => model.CampeonatosGanados, new { @class = "form-label" })
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-pencil"></i></span>
+        @Html.TextBoxFor(model => model.CampeonatosGanados, new { @class = "form-control", @placeholder = "CampeonatosGanados" })
+        @Html.ValidationMessageFor(model => Model.CampeonatosGanados, null, new { @class = "text-danger" })
+
+    </div>
+
+    @Html.LabelFor(model => model.Ciudad.Ciudades, new { @class = "form-label" })
+    if (Model.Ciudad.Ciudades != null)
+    {
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="bi bi-pencil"></i></span>
+            @Html.DropDownListFor(model => model.Ciudad.IdCiudad, new SelectList(Model.Ciudad.Ciudades, "IdCiudad", "Nombre"), "Selecciona una opcion", new { @id = "ddlCiudad" })
+        </div>
+
+    }
+    else
+    {
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="bi bi-pencil"></i></span>
+            @Html.DropDownListFor(model => model.Ciudad.IdCiudad, new SelectList(String.Empty), "Selecciona una opcion", new { @id = "ddlCiudad" })
+        </div>
+    }
+
+    <button class="btn btn-success" type="submit">Guardar</button>
+}
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    function soloLetras(input, label) {
+        var tecla = $(input).val();
+        var regex = /^[a-zA-Z]+$/;
+        var sinNumeros = tecla.replace(/\d+/g, '');
+        if (tecla === '') {
+
+        } else {
+            if (regex.test(tecla)) {
+                $('#' + label).text("✓").css({ "color": "green" });
+                $(input).css({ "border-color": "green", "border-width": "2px" });
+
+            }
+            else {
+                $(input).val(sinNumeros);
+                if (sinNumeros >= 0) {
+                    $('#' + label).text("Solo letras").css({ "color": "red" })
+                    $(input).css({ "border-color": "red", "border-width": "2px" });
+                }
+            }
+        }
+
+
+    }
+</script>

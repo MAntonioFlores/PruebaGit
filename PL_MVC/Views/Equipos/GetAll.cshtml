@@ -1,0 +1,77 @@
+﻿@model ML.EquiposDeportivos
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center mb-md-5 ">GetAll Equipos</h1>
+
+<body style="background: #ffffff">
+
+    @*<div style="display:flex; justify-content:end; margin-bottom: 10px; text-align: center;">
+            <button class="btn btn-outline-success" style="border-radius: 18px;" data-toggle="modal" data-target="#agregarCategoriaModal">Agregar Categoria</button>
+        </div>*@
+    <div style="display:flex; justify-content:end; margin-bottom: 10px; text-align: center;">
+        @Html.ActionLink("Agregar Equipo", "Form", "Equipos", new { area = "" }, new { @class = "btn btn-outline-success", @style = " border-radius: 18px;" })
+    </div>
+
+    <div class="row d-flex justify-content-center " style="">
+
+        @if (Model.EquipoDeportivo != null && Model.EquipoDeportivo.Count > 0)
+        {
+
+            <div class="table-responsive ">
+                <table class="table table-bordered border-primary table-responsive table-striped table-dark">
+                    <thead class="thead-dark text-center">
+                        <tr>
+                            <th>Nombre del Equipo</th>
+                            <th>Entrenador</th>
+                            <th>Fundacion</th>
+                            <th>Campeonatos Ganados</th>
+                            <th>Ciudad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ML.EquiposDeportivos equipos in Model.EquipoDeportivo)
+                        {
+                            <tr class="align-middle text-center">
+                                <td>@equipos.NombreEquipo</td>
+                                <td>@equipos.Entrenador</td>
+                                <td>@equipos.Fundacion</td>
+                                <td>@equipos.CampeonatosGanados</td>
+                                <td>@equipos.Ciudad.IdCiudad</td>
+                                <td class="col-1">
+                                    <div style="display: flex; justify-content: center;">
+                                        <a class="btn btn btn-outline-warning" style="margin-bottom: 5px; margin-right: 10px" href=@Url.Action("Form", "Equipos", new { IdEquipo = equipos.IdEquipo })>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                            </svg>
+                                        </a>
+                                        <form action="@Url.Action("Delete", "Equipos")" method="post" onsubmit="return confirm('¿Estás seguro que deseas eliminar el registro?');">
+                                            <input type="hidden" name="IdProducto" value="@equipos.IdEquipo" />
+
+                                            <button type="submit" class="btn btn-danger active" style="margin-bottom:2px; width:100%">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                        @*<a class="btn btn-danger" style="margin-bottom: 5px;" href=@Url.Action("Form", "Usuario", new {IdUsuario = usuario.IdUsuario, delete = true})>Eliminar Usuario</a>*@
+
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <h1 style="color: red; text-align: center; margin-top: 200px; margin-bottom: 250px">¡No has Agregado un Equipo!</h1>
+        }
+    </div>
+</body>
+

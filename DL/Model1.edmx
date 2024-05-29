@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProyectoGitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="IdCiudad" />
+          </Key>
+          <Property Name="IdCiudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EquiposDeportivos">
+          <Key>
+            <PropertyRef Name="IdEquipo" />
+          </Key>
+          <Property Name="IdEquipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreEquipo" Type="varchar" MaxLength="50" />
+          <Property Name="Entrenador" Type="varchar" MaxLength="50" />
+          <Property Name="Fundacion" Type="varchar" MaxLength="50" />
+          <Property Name="CampeonatosGanados" Type="int" />
+          <Property Name="IdCiudad" Type="int" />
+        </EntityType>
+        <Association Name="FK__EquiposDe__IdCiu__1273C1CD">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="0..1" />
+          <End Role="EquiposDeportivos" Type="Self.EquiposDeportivos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="IdCiudad" />
+            </Principal>
+            <Dependent Role="EquiposDeportivos">
+              <PropertyRef Name="IdCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="EquipoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombreEquipo" Type="varchar" Mode="In" />
+          <Parameter Name="Entrenador" Type="varchar" Mode="In" />
+          <Parameter Name="Fundacion" Type="varchar" Mode="In" />
+          <Parameter Name="CampeonatosGanados" Type="int" Mode="In" />
+          <Parameter Name="IdCiudad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EquipoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEquipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EquipoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEquipo" Type="int" Mode="In" />
+          <Parameter Name="NombreEquipo" Type="varchar" Mode="In" />
+          <Parameter Name="Entrenador" Type="varchar" Mode="In" />
+          <Parameter Name="Fundacion" Type="varchar" Mode="In" />
+          <Parameter Name="CampeonatosGanados" Type="int" Mode="In" />
+          <Parameter Name="IdCiudad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllDDLCiudad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetByIdEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEquipo" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ProyectoGitModelStoreContainer">
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EquiposDeportivos" EntityType="Self.EquiposDeportivos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__EquiposDe__IdCiu__1273C1CD" Association="Self.FK__EquiposDe__IdCiu__1273C1CD">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="EquiposDeportivos" EntitySet="EquiposDeportivos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProyectoGitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="IdCiudad" />
+          </Key>
+          <Property Name="IdCiudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EquiposDeportivos" Relationship="Self.FK__EquiposDe__IdCiu__1273C1CD" FromRole="Ciudad" ToRole="EquiposDeportivos" />
+        </EntityType>
+        <EntityType Name="EquiposDeportivo">
+          <Key>
+            <PropertyRef Name="IdEquipo" />
+          </Key>
+          <Property Name="IdEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreEquipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Entrenador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fundacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CampeonatosGanados" Type="Int32" />
+          <Property Name="IdCiudad" Type="Int32" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.FK__EquiposDe__IdCiu__1273C1CD" FromRole="EquiposDeportivos" ToRole="Ciudad" />
+        </EntityType>
+        <Association Name="FK__EquiposDe__IdCiu__1273C1CD">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="0..1" />
+          <End Role="EquiposDeportivos" Type="Self.EquiposDeportivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="IdCiudad" />
+            </Principal>
+            <Dependent Role="EquiposDeportivos">
+              <PropertyRef Name="IdCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProyectoGitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ciudads" EntityType="Self.Ciudad" />
+          <EntitySet Name="EquiposDeportivos" EntityType="Self.EquiposDeportivo" />
+          <AssociationSet Name="FK__EquiposDe__IdCiu__1273C1CD" Association="Self.FK__EquiposDe__IdCiu__1273C1CD">
+            <End Role="Ciudad" EntitySet="Ciudads" />
+            <End Role="EquiposDeportivos" EntitySet="EquiposDeportivos" />
+          </AssociationSet>
+          <FunctionImport Name="EquipoAdd">
+            <Parameter Name="NombreEquipo" Mode="In" Type="String" />
+            <Parameter Name="Entrenador" Mode="In" Type="String" />
+            <Parameter Name="Fundacion" Mode="In" Type="String" />
+            <Parameter Name="CampeonatosGanados" Mode="In" Type="Int32" />
+            <Parameter Name="IdCiudad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EquipoDelete">
+          <Parameter Name="IdEquipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EquipoUpdate">
+            <Parameter Name="IdEquipo" Mode="In" Type="Int32" />
+            <Parameter Name="NombreEquipo" Mode="In" Type="String" />
+            <Parameter Name="Entrenador" Mode="In" Type="String" />
+            <Parameter Name="Fundacion" Mode="In" Type="String" />
+            <Parameter Name="CampeonatosGanados" Mode="In" Type="Int32" />
+            <Parameter Name="IdCiudad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllDDLCiudad" ReturnType="Collection(ProyectoGitModel.GetAllDDLCiudad_Result)" />
+          <FunctionImport Name="GetByIdEquipo" ReturnType="Collection(ProyectoGitModel.GetByIdEquipo_Result)">
+          <Parameter Name="IdEquipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAll" ReturnType="Collection(ProyectoGitModel.GetAll_Result)" />
+        </EntityContainer>
+        <ComplexType Name="GetAllDDLCiudad_Result">
+          <Property Type="Int32" Name="IdCiudad" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetByIdEquipo_Result">
+          <Property Type="Int32" Name="IdEquipo" Nullable="false" />
+          <Property Type="String" Name="NombreEquipo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Entrenador" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Fundacion" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="CampeonatosGanados" Nullable="true" />
+          <Property Type="Int32" Name="IdCiudad" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAll_Result">
+          <Property Type="Int32" Name="IdEquipo" Nullable="false" />
+          <Property Type="String" Name="NombreEquipo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Entrenador" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Fundacion" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="CampeonatosGanados" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProyectoGitModelStoreContainer" CdmEntityContainer="ProyectoGitEntities">
+          <EntitySetMapping Name="Ciudads">
+            <EntityTypeMapping TypeName="ProyectoGitModel.Ciudad">
+              <MappingFragment StoreEntitySet="Ciudad">
+                <ScalarProperty Name="IdCiudad" ColumnName="IdCiudad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EquiposDeportivos">
+            <EntityTypeMapping TypeName="ProyectoGitModel.EquiposDeportivo">
+              <MappingFragment StoreEntitySet="EquiposDeportivos">
+                <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+                <ScalarProperty Name="NombreEquipo" ColumnName="NombreEquipo" />
+                <ScalarProperty Name="Entrenador" ColumnName="Entrenador" />
+                <ScalarProperty Name="Fundacion" ColumnName="Fundacion" />
+                <ScalarProperty Name="CampeonatosGanados" ColumnName="CampeonatosGanados" />
+                <ScalarProperty Name="IdCiudad" ColumnName="IdCiudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="EquipoAdd" FunctionName="ProyectoGitModel.Store.EquipoAdd" />
+          <FunctionImportMapping FunctionImportName="EquipoDelete" FunctionName="ProyectoGitModel.Store.EquipoDelete" />
+          <FunctionImportMapping FunctionImportName="EquipoUpdate" FunctionName="ProyectoGitModel.Store.EquipoUpdate" />
+          <FunctionImportMapping FunctionImportName="GetAllDDLCiudad" FunctionName="ProyectoGitModel.Store.GetAllDDLCiudad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoGitModel.GetAllDDLCiudad_Result">
+                <ScalarProperty Name="IdCiudad" ColumnName="IdCiudad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetByIdEquipo" FunctionName="ProyectoGitModel.Store.GetByIdEquipo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoGitModel.GetByIdEquipo_Result">
+                <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+                <ScalarProperty Name="NombreEquipo" ColumnName="NombreEquipo" />
+                <ScalarProperty Name="Entrenador" ColumnName="Entrenador" />
+                <ScalarProperty Name="Fundacion" ColumnName="Fundacion" />
+                <ScalarProperty Name="CampeonatosGanados" ColumnName="CampeonatosGanados" />
+                <ScalarProperty Name="IdCiudad" ColumnName="IdCiudad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAll" FunctionName="ProyectoGitModel.Store.GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoGitModel.GetAll_Result">
+                <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+                <ScalarProperty Name="NombreEquipo" ColumnName="NombreEquipo" />
+                <ScalarProperty Name="Entrenador" ColumnName="Entrenador" />
+                <ScalarProperty Name="Fundacion" ColumnName="Fundacion" />
+                <ScalarProperty Name="CampeonatosGanados" ColumnName="CampeonatosGanados" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

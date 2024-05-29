@@ -1,0 +1,51 @@
+﻿@model ML.EquiposDeportivos
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center mb-md-5 ">Agregar/Actualizar Producto</h1>
+
+@using (Html.BeginForm("Form", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.IdEquipo)
+
+    <body class="center-block .bg-light.bg-gradient table-responsive-sm">
+        <div class="row">
+            <div class="col-3" style="">
+
+                @Html.LabelFor(model => model.NombreEquipo, new { @class = "form-label", @placeholder = "Nombre del Equipo", @style = "text-center; padding-left: 18vh" })
+                @Html.TextBoxFor(model => model.NombreEquipo, new { @class = "form-control", @placeholder = "Nombre del Equipo", @style = "text-align: center"})
+
+            </div>
+            <div class="col-3" style="">
+
+                @Html.LabelFor(model => model.Entrenador, new { @class = "form-label", @placeholder = "Nombre del Entrenador", @style = "text-center; padding-left: 14vh" })
+                @Html.TextBoxFor(model => model.Entrenador, new { @class = "form-control", @placeholder = "Nombre del Entrenador", @style = "text-align: center"})
+
+            </div>
+            <div class="col-2" style="">
+
+                @Html.LabelFor(model => model.Fundacion, new { @class = "form-label", @placeholder = "Nombre de la Fundacion", @style = "text-center; padding-left: 7vh" })
+                @Html.TextBoxFor(model => model.Fundacion, new { @class = "form-control", @placeholder = "Nombre de la Fundacion", @style = ""})
+
+            </div>
+            <div class="col-2" style="">
+
+                @Html.LabelFor(model => model.CampeonatosGanados, new { @class = "form-label", @placeholder = "Numero de Campionatos Ganados", @style = "text-center; padding-left: 7vh" })
+                @Html.TextBoxFor(model => model.CampeonatosGanados, new { @class = "form-control", @placeholder = "Numero de Campionatos Ganados", @style = ""})
+
+            </div>
+            <div class="col-3">
+                @Html.LabelFor(model => model.Ciudad.IdCiudad, new { @class = "form-label text-center", @placeholder = "Tipo-Categoria", @style = "text-center; padding-left: 30px" })
+                <div class="select">
+                    @Html.DropDownListFor(model => model.Ciudad.IdCiudad, new SelectList(Model.Ciudad.Ciudades, "IdCiudad", "Nombre"), "Selecciona un Ciudad", new { @Id = "ddlTipoCategoria", @class = "selected-container" })
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success btn-lg d-grid gap-2 col-0 mx-auto">Agregar</button>
+            </div>
+        </div>
+    </body>
+}
+
