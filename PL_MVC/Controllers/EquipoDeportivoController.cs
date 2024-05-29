@@ -184,7 +184,7 @@ namespace PL_MVC.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:65041/api/");
+                client.BaseAddress = new Uri("http://localhost:65041/api/");
                 var responseTask = client.DeleteAsync("EquiposDeportivos/Delete?IdEquipo=" + IdEquipo);
 
                 responseTask.Wait();
