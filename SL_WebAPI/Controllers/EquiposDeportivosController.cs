@@ -76,9 +76,9 @@ namespace SL_WebAPI.Controllers
             }
         }
 
-        [Route("api/EquiposDeportivos/Delete")]
         [HttpDelete]
-        public IHttpActionResult Delete(int? IdEquipo)
+        [Route("api/EquiposDeportivos/Delete")]
+        public IHttpActionResult Delete(int IdEquipo)
         {
             var result = BL.EquiposDeportivos.Delete(IdEquipo);
 
@@ -88,10 +88,9 @@ namespace SL_WebAPI.Controllers
             }
             else
             {
-                return Content(HttpStatusCode.BadRequest, result);
+                return Content(HttpStatusCode.BadRequest, result.Item2);
             }
         }
-
     }
 }
 

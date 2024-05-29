@@ -22,6 +22,6 @@ namespace SL_WebAPI.Controllers
             {
                 return Content(HttpStatusCode.OK, result.Item2);
             }
-        }
+        }//tu controldor delete api
     }
 }

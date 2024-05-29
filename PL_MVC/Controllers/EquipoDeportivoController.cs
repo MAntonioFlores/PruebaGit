@@ -179,17 +179,18 @@ namespace PL_MVC.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Delete(int? IdEquipo)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:65041/api/");
+                var responseTask = client.DeleteAsync("EquiposDeportivos/Delete?IdEquipo=" + IdEquipo);
 
-                var responseTask = client.DeleteAsync($"EquiposDeportivos/Delete?IdEquipo={IdEquipo}");
                 responseTask.Wait();
 
                 var result = responseTask.Result;
+
                 if (result.IsSuccessStatusCode)
                 {
                     ViewBag.Text = "Se Elimino Exitosamente";
