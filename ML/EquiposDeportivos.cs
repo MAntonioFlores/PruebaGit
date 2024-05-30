@@ -14,10 +14,13 @@ namespace ML
 
         [Required]
         [Display(Name = "Nombre del Equipo")]
+        [StringLength(50, ErrorMessage = "El nombre del equipo debe tener 50 caracteres.")]
         public string NombreEquipo { get; set; }
         [Required]
+        [StringLength(50, ErrorMessage = "El nombre del entrenador debe tener 50 caracteres.")]
         public string Entrenador { get; set; }
         [Required]
+        [StringLength(50, ErrorMessage = "El nombre de la fundacion debe tener 50 caracteres.")]
         public string Fundacion { get; set; }
         [Required]
         [Display(Name = "Campeonatos Ganados")]

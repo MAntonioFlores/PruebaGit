@@ -33,7 +33,9 @@ namespace PL_MVC.Controllers
                     readTask.Wait();
 
 
-                    ML.EquiposDeportivos equipos = readTask.Result.Item3;
+                    ML.EquiposDeportivos equipos =new  ML.EquiposDeportivos();
+                    equipos = readTask.Result.Item3;
+
                     equipos.Ciudad = new ML.Ciudad();
 
                     var resultadoCiudad = BL.Ciudad.GetAll();
