@@ -9,78 +9,85 @@
 @using (Html.BeginForm("Form", "EquipoDeportivo", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(model => model.IdEquipo);
-<div class="d-flex flex-row mb-3">
-    <div class="col-4">
-        @Html.LabelFor(model => model.NombreEquipo, new { @class = "form-label" })
-        @Html.TextBoxFor(model => model.NombreEquipo, new
+    <div class="d-flex flex-row mb-3">
+        <div class="col-4">
+            @Html.LabelFor(model => model.NombreEquipo, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.NombreEquipo, new
+            {
+           @class = "form-control",
+           @placeholder = "Nombre",
+           //@onkeypress = "soloLetras(event, 'lblNombreEquipo')"
+           @onkeypress = "return SoloLetras(event, 'lblNombreEquipo')"
+       })
+            @Html.ValidationMessageFor(model => Model.NombreEquipo, null, new { @class = "text-danger" })
+            <label id="lblNombreEquipo"></label>
+        </div>
+        <div class="col-4">
+            @Html.LabelFor(model => model.Entrenador, new { @class = "form-label" })
+
+            @Html.TextBoxFor(model => model.Entrenador,
+           new
+           {
+               @class = "form-control",
+               @placeholder = "Entrenador",
+               //@onkeyup = "soloLetras(this, 'lblEntrenador')"
+               @onkeypress = "return SoloLetras(event, 'lblEntrenador')"
+           })
+            @Html.ValidationMessageFor(model => Model.Entrenador, null, new { @class = "text-danger" })
+            <label id="lblEntrenador"></label>
+        </div>
+        <div class="col-4">
+            @Html.LabelFor(model => model.Fundacion, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.Fundacion,
+           new
+           {
+               @class = "form-control",
+               @placeholder = "Fundacion",
+               //@onkeyup = "soloLetras(this, 'lblNombreEquipo')"
+               @onkeypress = "return SoloLetras(event, 'lblFundacion')"
+           })
+            @Html.ValidationMessageFor(model => Model.Fundacion, null, new { @class = "text-danger" })
+            <label id="lblFundacion"></label>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row mb-3">
+        <div class="col-4">
+            @Html.LabelFor(model => model.CampeonatosGanados, new { @class = "form-label" })
+
+            @Html.TextBoxFor(model => model.CampeonatosGanados, new
+       {
+           @class = "form-control",
+           @placeholder = "CampeonatosGanados",
+           //@onkeyup = "soloNumeros(this, 'lblCampeonatos')"
+           @onkeypress = "return SoloNumeros(event, 'lblCampeonatos')"
+       })
+            @Html.ValidationMessageFor(model => Model.CampeonatosGanados, null, new { @class = "text-danger" })
+            <label id="lblCampeonatos"></label>
+
+        </div>
+        @if (Model.Ciudad.Ciudades != null)
         {
-       @class = "form-control",
-       @placeholder = "Nombre",
-       @onkeyup = "soloLetras(this, 'lblNombreEquipo')"
-   })
-        @Html.ValidationMessageFor(model => Model.NombreEquipo, null, new { @class = "text-danger" })
-        <label id="lblNombreEquipo"></label>
-    </div>
-    <div class="col-4">
-        @Html.LabelFor(model => model.Entrenador, new { @class = "form-label" })
+            <div class="col-4">
+                @Html.LabelFor(model => model.Ciudad.Ciudades, new { @class = "form-label" })
+                @Html.DropDownListFor(model => model.Ciudad.IdCiudad, new SelectList(Model.Ciudad.Ciudades, "IdCiudad", "Nombre"), "Selecciona una opcion", new
+                {
+                    @class = "form-control",
+               @id = "ddlCiudad"
+                })
+            </div>
 
-        @Html.TextBoxFor(model => model.Entrenador,
-       new
-            {
-           @class = "form-control",
-           @placeholder = "Entrenador",
-           @onkeyup = "soloLetras(this, 'lblEntrenador')"
-            })
-        @Html.ValidationMessageFor(model => Model.Entrenador, null, new { @class = "text-danger" })
-        <label id="lblEntrenador"></label>
-    </div>
-    <div class="col-4">
-        @Html.LabelFor(model => model.Fundacion, new { @class = "form-label" })
-        @Html.TextBoxFor(model => model.Fundacion,
-       new
-            {
-           @class = "form-control",
-           @placeholder = "Fundacion",
-           @onkeyup = "soloLetras(this, 'lblNombreEquipo')"
-            })
-        @Html.ValidationMessageFor(model => Model.Fundacion, null, new { @class = "text-danger" })
-        <label id="lblFundacion"></label>
-    </div>
-</div>
-    
-<div class="d-flex flex-row mb-3">
-    <div class="col-4">
-        @Html.LabelFor(model => model.CampeonatosGanados, new { @class = "form-label" })
-
-        @Html.TextBoxFor(model => model.CampeonatosGanados, new
-    {
-       @class = "form-control",
-       @placeholder = "CampeonatosGanados",
-       @onkeyup = "soloNumeros(this, 'lblCampeonatos')"
-    })
-        @Html.ValidationMessageFor(model => Model.CampeonatosGanados, null, new { @class = "text-danger" })
-        <label id="lblCampeonatos"></label>
+        }
+        else
+        {
+            <div class="col-4">
+                @Html.LabelFor(model => model.Ciudad.Ciudades, new { @class = "form-label" })
+                @Html.DropDownListFor(model => model.Ciudad.IdCiudad, new SelectList(String.Empty), "Selecciona una opcion", new { @class = "form-control", @id = "ddlCiudad" })
+            </div>
+        }
 
     </div>
-    @if (Model.Ciudad.Ciudades != null)
-    {
-    <div class="col-4">
-        @Html.LabelFor(model => model.Ciudad.Ciudades, new { @class = "form-label" })
-        @Html.DropDownListFor(model => model.Ciudad.IdCiudad, new SelectList(Model.Ciudad.Ciudades, "IdCiudad", "Nombre"), "Selecciona una opcion", new { @class = "form-control", 
-       @id = "ddlCiudad" })
-    </div>
 
-    }
-    else
-    {
-    <div class="col-4">
-        @Html.LabelFor(model => model.Ciudad.Ciudades, new { @class = "form-label" })
-        @Html.DropDownListFor(model => model.Ciudad.IdCiudad, new SelectList(String.Empty), "Selecciona una opcion", new { @class = "form-control", @id = "ddlCiudad" })
-    </div>
-    }
-
-</div>
-   
 
 
     <button class="btn btn-success" type="submit">Guardar</button>
@@ -88,51 +95,77 @@
 
 @Scripts.Render("~/bundles/jquery")
 <script>
-    function soloLetras(input, label) {
-        var tecla = $(input).val();
-        var regex = /^[a-zA-Z]+$/;
-        var sinNumeros = tecla.replace(/\d+/g, '');
-        if (tecla === '') {
+    //function soloLetras(input, label) {
+    //    var tecla = input.key;
+    //    var regex = /^[a-zA-Z]+$/;
+    //    var sinNumeros = tecla.replace(/\d+/g, '');
+    //    if (tecla === '') {
 
-        } else {
-            if (regex.test(tecla)) {
-                $('#' + label).text("✓").css({ "color": "green" });
-                $(input).css({ "border-color": "green", "border-width": "2px" });
+    //    } else {
+    //        if (regex.test(tecla)) {
+    //            $('#' + label).text("✓").css({ "color": "green" });
+    //            $(input).css({ "border-color": "green", "border-width": "2px" });
+    //            return true;
+    //        }
+    //        else {
+    //            $(input).val(sinNumeros);
+    //            if (sinNumeros >= 0) {
+    //                $('#' + label).text("Solo letras").css({ "color": "red" })
+    //                $(input).css({ "border-color": "red", "border-width": "2px" });
+    //                return false;
+    //            }
+    //        }
+    //    }
 
-            }
-            else {
-                $(input).val(sinNumeros);
-                if (sinNumeros >= 0) {
-                    $('#' + label).text("Solo letras").css({ "color": "red" })
-                    $(input).css({ "border-color": "red", "border-width": "2px" });
-                }
-            }
+
+    //}
+    function SoloLetras(e, controlId) {
+        var caracter = e.key;
+        if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g.test(caracter)) {
+            $('#' + controlId).text("Solo se aceptan letras");
+            $('#' + controlId).css({ "color": "red" });
+            return false;
         }
-
-
-    }
-    function soloNumeros(input, label) {
-        var tecla = $(input).val();
-        var regex = /^[0-9\s]+$/;
-        var sinLetras = tecla.replace(regex, '');
-        if (tecla === '') {
-
-        } else {
-            if (regex.test(tecla)) {
-                $('#' + label).text("✓").css({ "color": "green" });
-                $(input).css({ "border-color": "green", "border-width": "2px" });
-            }
-            else {
-                $(input).val(sinLetras);
-                if (sinLetras.length >= 0) {
-                    $('#' + label).text("Solo Numeros").css({ "color": "red" })
-                    $(input).css({ "border-color": "red", "border-width": "2px" });
-                } else {
-                    $('#' + label).text("Deben ser 10 digitos").css({ "color": "red" })
-                    $(input).css({ "border-color": "red", "border-width": "2px" });
-                }
-
-            }
+        else {
+            $('#' + controlId).text("");
+            return true;
         }
     }
+
+    function SoloNumeros(e, controlId) {
+        var caracter = e.key;
+        if (!/^[0-9\s]+$/g.test(caracter)) {
+            $('#' + controlId).text("Solo se aceptan Numeros");
+            $('#' + controlId).css({ "color": "red" });
+            return false;
+        }
+        else {
+            $('#' + controlId).text("");
+            return true;
+        }
+    }
+    //function soloNumeros(input, label) {
+    //    var tecla = $(input).val();
+    //    var regex = /^[0-9\s]+$/;
+    //    var sinLetras = tecla.replace(regex, '');
+    //    if (tecla === '') {
+
+    //    } else {
+    //        if (regex.test(tecla)) {
+    //            $('#' + label).text("✓").css({ "color": "green" });
+    //            $(input).css({ "border-color": "green", "border-width": "2px" });
+    //        }
+    //        else {
+    //            $(input).val(sinLetras);
+    //            if (sinLetras.length >= 0) {
+    //                $('#' + label).text("Solo Numeros").css({ "color": "red" })
+    //                $(input).css({ "border-color": "red", "border-width": "2px" });
+    //            } else {
+    //                $('#' + label).text("Deben ser 10 digitos").css({ "color": "red" })
+    //                $(input).css({ "border-color": "red", "border-width": "2px" });
+    //            }
+
+    //        }
+    //    }
+    //}
 </script>
